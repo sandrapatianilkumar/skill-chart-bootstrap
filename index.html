@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Pie Chart</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <style>
+        .b-skills {
+            text-align: center;
+            padding: 45px;
+            border-top: 1px solid #f9f9f9;
+        }
+        
+        .b-skills:last-child {
+            margin-bottom: -30px;
+        }
+        
+        .b-skills h2 {
+            margin-bottom: 50px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+        
+        .skill-item {
+            position: relative;
+            max-width: 250px;
+            width: 100%;
+            margin-bottom: 30px;
+            color: #555;
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-top: 100%;
+            margin-bottom: 27px;
+        }
+        
+        .skill-item .chart,
+        .skill-item .chart canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+        }
+        
+        .skill-item .chart::before {
+            content: "";
+            width: 0;
+            height: 100%;
+        }
+        
+        .skill-item .chart::before,
+        .skill-item .percent {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .skill-item .percent {
+            position: relative;
+            line-height: 1;
+            font-size: 40px;
+            font-weight: 900;
+            z-index: 2;
+        }
+        
+        .skill-item .percent::after {
+            content: attr(data-after);
+            font-size: 20px;
+        }
+        
+        p {
+            font-weight: 900;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="b-skills">
+        <div class="container">
+            <h2>Our Skills</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="skill-item center-block">
+                        <div class="chart-container">
+                            <div class="chart" data-percent="92" data-bar-color="#23afe3">
+                                <span class="percent" data-after="%">92</span>
+                            </div>
+                        </div>
+                        <br><br><br>
+                        <p>HTML</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="skill-item center-block">
+                        <div class="chart-container">
+                            <div class="chart" data-percent="78" data-bar-color="#ad7212">
+                                <span class="percent" data-after="%">78</span>
+                            </div>
+                        </div>
+                        <br><br><br>
+                        <p>CSS3</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="skill-item center-block">
+                        <div class="chart-container">
+                            <div class="chart" data-percent="95" data-bar-color="#ff4241">
+                                <span class="percent" data-after="%">95</span>
+                            </div>
+                        </div>
+                        <br><br><br>
+                        <p>BOOTSTRAP</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="skill-item center-block">
+                        <div class="chart-container">
+                            <div class="chart" data-percent="85" data-bar-color="#cdc214">
+                                <span class="percent" data-after="%">85</span>
+                            </div>
+                        </div>
+                        <br><br><br>
+                        <p>JAVA SCRIPT</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="plugins/jquery-2.2.4.min.js"></script>
+    <script src="plugins/jquery.appear.min.js"></script>
+    <script src="plugins/jquery.easypiechart.min.js"></script>
+    <script>
+        'use strict';
+
+        var $window = $(window);
+
+        function run() {
+            var fName = arguments[0],
+                aArgs = Array.prototype.slice.call(arguments, 1);
+            try {
+                fName.apply(window, aArgs);
+            } catch (err) {
+
+            }
+        };
+
+        /* chart
+        ================================================== */
+        function _chart() {
+            $('.b-skills').appear(function() {
+                setTimeout(function() {
+                    $('.chart').easyPieChart({
+                        easing: 'easeOutElastic',
+                        delay: 3000,
+                        barColor: '#369670',
+                        trackColor: '#fff',
+                        scaleColor: false,
+                        lineWidth: 21,
+                        trackWidth: 21,
+                        size: 250,
+                        lineCap: 'round',
+                        onStep: function(from, to, percent) {
+                            this.el.children[0].innerHTML = Math.round(percent);
+                        }
+                    });
+                }, 150);
+            });
+        };
+
+        $(document).ready(function() {
+
+            run(_chart);
+
+
+        });
+    </script>
+</body>
+
+</html>
